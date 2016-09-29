@@ -35,13 +35,13 @@ Effect:
 
 On the one hand, if we use more registers per thread, we can reduce the local memory overhead caused by register spill. On the other hand, if we use less registers per thread, we can run more warps in parallel. We need to find the right balance in this trade-off.
 
-- Adding option `-Xptaxs -v` when compiling with `nvcc` gives us the register usage info:  **register usage: 63, stored spill 324B, load spill 452B** Explanation. GT 610 has compute capability 2.1 with 63 registers at most in each thread. The total size of registers available is 64KB. If a thread asks for more registers than the limit, there will be register spill.
+- Register spills. Adding option `-Xptaxs -v` when compiling with `nvcc` gives us the register usage info:  **register usage: 63, stored spill 324B, load spill 452B** Explanation. GT 610 has compute capability 2.1 with 63 registers at most in each thread. The total size of registers available is 64KB. If a thread asks for more registers than the limit, there will be register spill.
 
   Visual profiler says **local memory overhead: 62.3%**
 
   Explanation. When register spills happen, the thread will read/write through L1 cache into local memory which is slower than directly to registers. Moreover, in the case of L1 cache miss, instructions have to be re-issued putting more pressure on the memory bandwidth. This is why we have such a large **local memory overhead**.
 
-- Visual profiler says **warp occupancy 33.1%** 
+- Warp occupancy.  Visual profiler says **warp occupancy 33.1%** 
 
   Explanation. We are using blocks of dimension 16*8 in the computation. GT 610 can allow at most 48 warps to be simultanously running in hardware given the block dimension we've chosen. Warp occupancy says we're only using 16 warps on average, which is a consequence of register spill. Each block uses up to 4KB registers, with the limit of 64KB registers in total, it makes sense that we can only run 16 warps at the same time. 
 
