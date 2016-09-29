@@ -21,7 +21,11 @@ OS: Linux 12.04, Compiler: nvcc in CUDA 5.0
 
 Scene: an 3996 face ant in a cube, 800*600 light beams, 3 times reflection for shallow calculation. 
 
-Effect:  ![alt tag](https://github.com/jasonge27/RayTracingCUDA/blob/master/scene/rendered_ant.png)
+Effect:  
+
+<p align="center">
+  <img src="https://github.com/jasonge27/RayTracingCUDA/blob/master/scene/rendered_ant.png" width="200"/>
+</p>
 
 ## Hardware Level Optimization for GPU
 
