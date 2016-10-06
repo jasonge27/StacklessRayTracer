@@ -29,7 +29,7 @@
 
 <p>Ray tracing follows every beam of light in a scene. Since we know the physical laws of reflection, refraction and scattering, when enough number of light beams are contructed, we can render the scene up to real world effects. Ray tracing is a natually parallel algorithm because physics tell us light beams do not interfere with each other.</p>
 
-<p>The main calculation of ray tracing involves calculating the intersecting point of any light beam and the objects in the scene. We implemented stackless KDTree algorithm in the paper Stackless KD-Tree Traversal for High Performance GPU Ray Tracing (by Popov, Gunther et al. in 2007) and observed  100X times speed up.</p>
+<p>The main calculation of ray tracing involves calculating the intersecting point of any light beam and the objects in the scene. We implemented stackless KDTree algorithm in the paper [1] and observed  100X times speed up.</p>
 
 <table>
 <thead>
@@ -44,14 +44,14 @@
 <tr>
 <td align="center">CPU rendering time</td>
 <td align="center">255s</td>
-<td align="center">22193ms</td>
-<td align="center">13371ms</td>
+<td align="center">22.193s</td>
+<td align="center">13.371s</td>
 </tr>
 <tr>
 <td align="center">GPU rendering time (before hardware optimization)</td>
-<td align="center">3282ms</td>
-<td align="center">198ms</td>
-<td align="center">98ms</td>
+<td align="center">3.282s</td>
+<td align="center">0.198s</td>
+<td align="center">0.098s</td>
 </tr>
 <tr>
 <td align="center">Speedup</td>
@@ -133,7 +133,7 @@
 <tbody>
 <tr>
 <td align="center">Before Optimization</td>
-<td align="center">98</td>
+<td align="center">98ms</td>
 <td align="center">31.1%</td>
 <td align="center">62.3%</td>
 <td align="center">324B</td>
@@ -141,7 +141,7 @@
 </tr>
 <tr>
 <td align="center">Optimization 1</td>
-<td align="center">60</td>
+<td align="center">60ms</td>
 <td align="center">33.4%</td>
 <td align="center">48.8%</td>
 <td align="center">122B</td>
@@ -149,7 +149,7 @@
 </tr>
 <tr>
 <td align="center">Optimization 1+2</td>
-<td align="center">49</td>
+<td align="center">49ms</td>
 <td align="center">49.6%</td>
 <td align="center">53.7%</td>
 <td align="center">240B</td>
@@ -159,6 +159,10 @@
 </table>
 
 <p>​</p>
+
+<p>References</p>
+
+<p>[1] Popov, Gunther et al., Stackless KD-Tree Traversal for High Performance GPU Ray Tracing, 2007</p>
 </li>
 </ul>
 
