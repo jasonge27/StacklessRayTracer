@@ -5,12 +5,12 @@ Implemented stackless KDTree on GPU using CUDA to accelerate ray tracing renderi
 
 Ray tracing follows every beam of light in a scene. Since we know the physical laws of reflection, refraction and scattering, when enough number of light beams are contructed, we can render the scene up to real world effects. Ray tracing is a natually parallel algorithm because physics tell us light beams do not interfere with each other.
 
-The main calculation of ray tracing involves calculating the intersecting point of any light beam and the objects in the scene. We implemented stackless KDTree algorithm in the paper Stackless KD-Tree Traversal for High Performance GPU Ray Tracing (by Popov, Gunther et al. in 2007) and observed  100X times speed up.
+The main calculation of ray tracing involves calculating the intersecting point of any light beam and the objects in the scene. We implemented stackless KDTree algorithm in the paper [1] and observed  100X times speed up.
 
 |                                          | Direct Intersection Calculation | Intersection Calculation by Vanilla Kdtree | Intersection  Calculation by Stackless Kdtree |
 | :--------------------------------------: | :-----------------------------: | :--------------------------------------: | :--------------------------------------: |
-|            CPU rendering time            |              255s               |                 22193ms                  |                 13371ms                  |
-| GPU rendering time (before hardware optimization) |             3282ms              |                  198ms                   |                   98ms                   |
+|            CPU rendering time            |              255s               |                 22.193s                  |                 13.371s                  |
+| GPU rendering time (before hardware optimization) |             3.282s              |                  0.198s                  |                  0.098s                  |
 |                 Speedup                  |               77                |                   112                    |                   137                    |
 
 Experiment Details. 
@@ -61,9 +61,13 @@ Since the threads in one single warp share the same intruction stream, when the 
 
   |                     | Time | Warp Occupancy | Local memory overhead | Spilled Store | Spilled Load |
   | :-----------------: | :--: | :------------: | :-------------------: | :-----------: | :----------: |
-  | Before Optimization |  98  |     31.1%      |         62.3%         |     324B      |     452B     |
-  |   Optimization 1    |  60  |     33.4%      |         48.8%         |     122B      |     122B     |
-  |  Optimization 1+2   |  49  |     49.6%      |         53.7%         |     240B      |     240B     |
+  | Before Optimization | 98ms |     31.1%      |         62.3%         |     324B      |     452B     |
+  |   Optimization 1    | 60ms |     33.4%      |         48.8%         |     122B      |     122B     |
+  |  Optimization 1+2   | 49ms |     49.6%      |         53.7%         |     240B      |     240B     |
 
   ​
+
+  References
+
+  [1] Popov, Gunther et al., Stackless KD-Tree Traversal for High Performance GPU Ray Tracing, 2007
 
